@@ -1,5 +1,6 @@
 import React from 'react';
 import { gql } from 'apollo-boost';
+import { useQuery } from '@apollo/react-hooks'
 
 const Home = () => {
   console.log("Home")
@@ -10,4 +11,16 @@ const Home = () => {
   )
 };
 
-export default Home;
+const getMovies = gql`
+  query {
+    movies {
+      id
+      medium_cover_image
+      }
+  }
+`
+
+export default () => {
+  const { loading, error, data } = useQuery(getMovies);
+  console.log(loading, error, data);
+};
